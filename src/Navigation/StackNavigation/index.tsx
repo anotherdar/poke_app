@@ -2,21 +2,27 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../../screen/HomeScreen/index';
 import { DetailScreen } from '../../screen/DetailScreen/index';
+import { SinglePokemon } from '../../types/Pokemons';
 
-const Stack = createStackNavigator();
+export type RootStackParams = {
+  home: undefined,
+  details: { pokemon: SinglePokemon, color: string }
+}
+
+const Stack = createStackNavigator<RootStackParams>();
 
 export const StackNavigation = () => {
   return (
     <Stack.Navigator
-        screenOptions={{
-            headerShown: false,
-            cardStyle: {
-                backgroundColor: '#fff'
-            }
-        }}
+      screenOptions={{
+        headerShown: false,
+        cardStyle: {
+          backgroundColor: '#fff'
+        }
+      }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Details" component={DetailScreen} />
+      <Stack.Screen name="home" component={HomeScreen} />
+      <Stack.Screen name="details" component={DetailScreen} />
     </Stack.Navigator>
   );
 }
