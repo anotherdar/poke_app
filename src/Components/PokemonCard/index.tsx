@@ -6,12 +6,13 @@ import ImageColors from 'react-native-image-colors'
 import { useNavigation } from '@react-navigation/core';
 
 type PokemonCardProperties = {
-    pokemon: SinglePokemon
+    pokemon: SinglePokemon,
+    full?: boolean
 }
 
 const { width: screenWidth } = Dimensions.get('window');
 
-export const PokemonCard: React.FC<PokemonCardProperties> = ({ pokemon }) => {
+export const PokemonCard: React.FC<PokemonCardProperties> = ({ pokemon, full = false }) => {
     const isMounted = React['useRef'](true);
     const { id, name, picture } = pokemon;
     const [cardColor, setCarColor] = React.useState('#ffaa00')
@@ -37,9 +38,9 @@ export const PokemonCard: React.FC<PokemonCardProperties> = ({ pokemon }) => {
     return (
         <Pressable
             onPress={() => navigator.navigate<'details'>('details', {pokemon, color: cardColor})}
-            style={[pokeCard.container, { width: screenWidth * 0.4, backgroundColor: cardColor, shadowColor: cardColor }]}
+            style={[pokeCard.container, { width: full ?  screenWidth * 0.85 : screenWidth * 0.4, backgroundColor: cardColor, shadowColor: cardColor }]}
         >
-            <View style={[pokeCard.pkbContainer , { width: screenWidth * 0.4 }]}>
+            <View style={[pokeCard.pkbContainer , { width: full ?  screenWidth * 0.85 : screenWidth * 0.4 }]}>
                 <Image
                     source={require('../../assets/pokebola-blanca.png')}
                     style={pokeCard.pkb}

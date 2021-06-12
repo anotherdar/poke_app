@@ -19,6 +19,7 @@ export const HomeScreen = () => {
         keyExtractor={pokemon => pokemon.id}
         showsVerticalScrollIndicator={false}
         numColumns={2}
+        initialNumToRender={10}
         ListHeaderComponent={() => {
           return <Text style={[appTheme.title, appTheme.globalMargin,{ top: top + 20, marginBottom: top + 40 }]}>Pokedex</Text>
         }}

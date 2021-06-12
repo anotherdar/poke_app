@@ -1,22 +1,23 @@
+// https://pokeapi.co/api/v2/pokemon/?limit=1200;
+
 import { AxiosError } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { PokeApi } from '../../api/pokeAPi';
 import { Pokemons, SinglePokemon, PokemonResult } from '../../types/Pokemons';
 
-export const usePokemon = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(true) 
+export const useSearch = () => {
+    const [isFetching, setIsFetching] = useState<boolean>(true) 
     const [errors, setError] = useState<Object>({}) 
-    const url = useRef('https://pokeapi.co/api/v2/pokemon?limit=9')
+    const url = useRef('https://pokeapi.co/api/v2/pokemon?limit=1200')
     const [pokemons, setPokemons] = useState<Array<SinglePokemon>>([])
     
     const loadPokemons = async() => {
         try {
-            setIsLoading(true)
+            setIsFetching(true)
             const res = await PokeApi.get<Pokemons>(url.current);
-            url.current = res.data.next;
             transformPokemonList( res.data.results )
         } catch(e) {
-            setIsLoading(false)
+            setIsFetching(false)
             setError(e as AxiosError)
         }
     }
@@ -34,8 +35,8 @@ export const usePokemon = () => {
             }
         })
 
-        setPokemons(prevPokemons => ([ ...prevPokemons, ...newPkList ]));
-        setIsLoading(false)
+        setPokemons(newPkList);
+        setIsFetching(false)
     }
 
     useEffect(() => {
@@ -44,8 +45,7 @@ export const usePokemon = () => {
 
     return {
         pokemons,
-        isLoading,
+        isFetching,
         errors,
-        loadPokemons
     }
 }

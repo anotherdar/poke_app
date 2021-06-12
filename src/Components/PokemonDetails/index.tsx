@@ -24,7 +24,7 @@ export const PokemonDetail:React.FC<PkDetails> = ({ pokemon, color }) => {
                         })
                     }
                 </View>
-                <Text style={[styles.title, { color }]}>Weigh</Text>
+                <Text style={[styles.title, { color }]}>Stats</Text>
                 <ScrollView style={{ flexDirection: 'row', }}>
                     {
                         pokemon.stats.map(({stat, base_stat}) => {
@@ -35,9 +35,6 @@ export const PokemonDetail:React.FC<PkDetails> = ({ pokemon, color }) => {
                         })
                     }
                 </ScrollView>   
-                    
-                <Text style={[styles.title, { color }]}>Weigh</Text>
-                <Text style={styles.types}>{pokemon.weight.toString().length > 2 ? pokemon.weight: pokemon.weight.toString().split('').join(',') + 'kg'}</Text>
             </View>
             {/* Sprites */}
             <View style={{  }}>
