@@ -8,10 +8,10 @@ interface Props {
     style?: StyleProp<ImageStyle>;
 }
 
-export const FadeInImage = ({ uri, style = {} } : Props) => {
+export const FadeInImage = ({ uri, style = {} }: Props) => {
 
     const { opacity, fadeIn } = useAnimation();
-    const [ isLoading, setIsLoading ] = useState( true );
+    const [isLoading, setIsLoading] = useState(true);
 
     const finishLoading = () => {
         setIsLoading(false);
@@ -19,33 +19,29 @@ export const FadeInImage = ({ uri, style = {} } : Props) => {
     }
 
     const onError = (err: NativeSyntheticEvent<ImageErrorEventData>) => {
-        setIsLoading( false );
+        setIsLoading(false);
     }
 
     return (
-        <View style={{
+        <View style={[style, {
             justifyContent: 'center',
             alignItems: 'center',
-            ...style as any,
-        }}>
-            
+        }]}>
+
             {
-                isLoading && 
-                    <ActivityIndicator 
-                        style={{ position: 'absolute' }} 
-                        color="grey"
-                        size={ 30 }
-                    />
+                isLoading &&
+                <ActivityIndicator
+                    style={{ position: 'absolute' }}
+                    color="grey"
+                    size={30}
+                />
             }
 
-            <Animated.Image 
+            <Animated.Image
                 source={{ uri }}
-                onError={ onError } 
-                onLoad={ finishLoading }
-                style={{
-                    ...style as any,
-                    opacity
-                }}
+                onError={onError}
+                onLoad={finishLoading}
+                style={[style, { opacity }]}
             />
 
         </View>
